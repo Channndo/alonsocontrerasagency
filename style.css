@@ -1,0 +1,178 @@
+:root{
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  background:#000 url("assets/marble.jpg") center/cover no-repeat fixed;
+}
+
+.wrap{
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.grid{
+  width:min(1120px, 100%);
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+/* ---------- LEFT PANEL ---------- */
+
+.left{
+  padding:22px 10px;
+  color:#fff;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.logo{
+  width:185px;
+  height:auto;
+  display:block;
+}
+
+.brandname{
+  font-size:11px;
+  letter-spacing:.22em;
+  opacity:.8;
+}
+
+h1{
+  font-size:44px;
+  line-height:1.05;
+  margin:14px 0 12px;
+  letter-spacing:-.02em;
+}
+
+.left .sub{
+  color:rgba(255,255,255,.82);
+  max-width:520px;
+  font-size:15px;
+  line-height:1.6;
+}
+
+.bullets{
+  margin:16px 0 0;
+  padding-left:16px;
+  color:rgba(255,255,255,.85);
+  font-size:14px;
+  line-height:1.75;
+}
+
+/* ---------- RIGHT CARD ---------- */
+
+.right{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  padding:20px;
+}
+
+h2{
+  margin:6px 0 16px;
+  font-size:20px;
+  color:#0f172a;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:10px 0 6px;
+}
+
+input,select{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:14px;
+  outline:none;
+  background:#fff;
+}
+
+button{
+  width:100%;
+  margin-top:14px;
+  padding:12px 14px;
+  border:0;
+  border-radius:12px;
+  cursor:pointer;
+  background:#0b0b0d;
+  color:#fff;
+  font-weight:600;
+  font-size:14px;
+}
+
+/* ---------- TOAST ---------- */
+
+.toast{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:13px;
+  background:#111827;
+  color:#fff;
+}
+
+.hidden{display:none !important}
+
+/* ---------- THANK YOU VIEW ---------- */
+
+#thankYouView .sub{
+  color:#0f172a;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ---------- LEGAL BLOCK ---------- */
+
+.legal-block{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid rgba(15,23,42,.12);
+  font-size:12px;
+  line-height:1.5;
+  color:rgba(15,23,42,.72);
+}
+
+.legal-title{
+  font-weight:600;
+  color:rgba(15,23,42,.85);
+  margin-bottom:4px;
+}
+
+.legal-text{
+  color:rgba(15,23,42,.7);
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  h1{font-size:38px}
+  .right{padding:18px}
+}

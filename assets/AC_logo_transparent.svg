@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1200" viewBox="0 0 2000 1200">
+  <!-- Transparent background -->
+  <g id="logo" transform="translate(0,0)">
+    <!-- AC -->
+    <text x="1000" y="520"
+          text-anchor="middle"
+          font-family="Didot, 'Bodoni Moda', 'Playfair Display', 'Times New Roman', serif"
+          font-size="520"
+          fill="#000000"
+          letter-spacing="6">AC</text>
+
+    <!-- Divider -->
+    <line x1="610" y1="650" x2="1390" y2="650"
+          stroke="#C9A24D"
+          stroke-width="6"
+          stroke-linecap="round"/>
+
+    <!-- Name -->
+    <text x="1000" y="770"
+          text-anchor="middle"
+          font-family="Didot, 'Bodoni Moda', 'Playfair Display', 'Times New Roman', serif"
+          font-size="86"
+          fill="#000000"
+          letter-spacing="14">ALONSO CONTRERAS</text>
+  </g>
+</svg>

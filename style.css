@@ -50,14 +50,15 @@ body{
 .brand{
   display:flex;
   flex-direction:column;
-  gap:10px;
-  margin-bottom:10px;
+  gap:6px;
+  margin-bottom:0px;
 }
 
 .logo{
-  width:485px;
+  width:585px;
   height:auto;
   display:block;
+  margin-bottom:-22px; 
 }
 
 .brandname{

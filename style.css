@@ -51,11 +51,11 @@ body{
   display:flex;
   flex-direction:column;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .logo{
-  width:385px;
+  width:485px;
   height:auto;
   display:block;
 }

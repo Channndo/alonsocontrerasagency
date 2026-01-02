@@ -43,7 +43,7 @@ body{
   display:flex;
   flex-direction:column;
   gap:10px;
-  margin-bottom:18px;
+  margin-bottom:6px;
 }
 
 .logo{
@@ -61,7 +61,7 @@ body{
 h1{
   font-size:44px;
   line-height:1.05;
-  margin:4px 0 12px;
+  margin:0 0 12px;
   letter-spacing:-.02em;
   color:#0f172a;
 }

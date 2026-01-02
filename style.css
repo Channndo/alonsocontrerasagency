@@ -42,7 +42,7 @@ body{
 .brand{
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:0px;
   margin-bottom:6px;
 }
 

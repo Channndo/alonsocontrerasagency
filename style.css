@@ -67,3 +67,15 @@
 .bullets li{
   margin:4px 0;
 }
+/* --- FORCE: move headline block UP --- */
+.left h1{
+  margin-top: -18px !important;   /* increase to -24 if you want more */
+}
+
+.left .sub{
+  margin-top: 6px !important;     /* keeps spacing tight under headline */
+}
+
+.bullets{
+  margin-top: 12px !important;    /* keeps bullets tucked in */
+}

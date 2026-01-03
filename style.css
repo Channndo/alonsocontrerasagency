@@ -43,7 +43,7 @@ body{
   display:flex;
   flex-direction:column;
   gap:0px;
-  margin-bottom:-18px;
+  margin-bottom:-24px;
 }
 
 .logo{

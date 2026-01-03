@@ -47,7 +47,7 @@ body{
 }
 
 .logo{
-  width:485px;
+  width:585px;
   height:auto;
   display:block;
 }
@@ -61,7 +61,7 @@ body{
 h1{
   font-size:44px;
   line-height:1.05;
-  margin:-18 0 12px;
+  margin:-10 0 12px;
   letter-spacing:-.02em;
   color:#0f172a;
 }

@@ -1,5 +1,3 @@
-// After you deploy the Apps Script Web App,
-// paste the Web App URL here:
 window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0VCd20qf7P8mU4EVRagZ6JL1Astu_p76v2ZpyTqeQjykldr0A46g/exec";
 
 (function () {
@@ -14,17 +12,14 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
   const tyName = document.getElementById('tyName');
   const newRequestBtn = document.getElementById('newRequestBtn');
 
-  // If the page is not loaded / wrong HTML is being served, bail safely.
   if (!form || !btn || !toast || !formView || !thankYouView || !newRequestBtn) return;
 
   const typeEl = document.getElementById('type');
   const carCountWrap = document.getElementById('carCountWrap');
   const carCountEl = document.getElementById('carCount');
 
-  // NEW: Hear about
   const hearEl = document.getElementById('hearAbout');
 
-  // NEW: Referral branch
   const referralWrap = document.getElementById('referralWrap');
   const referralNameEl = document.getElementById('referralName');
   const referralPhoneEl = document.getElementById('referralPhone');
@@ -51,41 +46,22 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
     tyName.textContent = firstName ? `, ${firstName}` : '';
     formView.classList.add('hidden');
     thankYouView.classList.remove('hidden');
-
-    // lift left side (your CSS uses .wrap.thankyou-active .left)
     if (wrap) wrap.classList.add('thankyou-active');
-  }
-
-  function resetForm() {
-    form.reset();
-    showToast('', true);
-    formView.classList.remove('hidden');
-    thankYouView.classList.add('hidden');
-
-    if (wrap) wrap.classList.remove('thankyou-active');
-
-    updateCarCountVisibility();
-    updateReferralVisibility();
   }
 
   function updateCarCountVisibility() {
     if (!typeEl || !carCountWrap || !carCountEl) return;
-
     const v = (typeEl.value || '').toLowerCase();
     const show = (v === 'auto' || v === 'bundle');
-
     carCountWrap.classList.toggle('hidden', !show);
     carCountEl.required = show;
-
     if (!show) carCountEl.value = '';
   }
 
   function updateReferralVisibility() {
     if (!hearEl || !referralWrap) return;
 
-    const hear = (hearEl.value || '').toLowerCase();
-    const isReferral = hear === 'referral';
-
+    const isReferral = (hearEl.value || '').toLowerCase() === 'referral';
     referralWrap.classList.toggle('hidden', !isReferral);
 
     if (referralNameEl) referralNameEl.required = isReferral;
@@ -101,24 +77,30 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
       return;
     }
 
-    // Referral selected → show email field only if "Yes"
     const hasEmail = (referralHasEmailEl?.value || '').toLowerCase();
     const showEmail = hasEmail === 'yes';
-
     if (referralEmailWrap) referralEmailWrap.classList.toggle('hidden', !showEmail);
     if (referralEmailEl) referralEmailEl.required = showEmail;
-
     if (!showEmail && referralEmailEl) referralEmailEl.value = '';
+  }
+
+  function resetForm() {
+    form.reset();
+    showToast('', true);
+    formView.classList.remove('hidden');
+    thankYouView.classList.add('hidden');
+    if (wrap) wrap.classList.remove('thankyou-active');
+    updateCarCountVisibility();
+    updateReferralVisibility();
   }
 
   if (typeEl) typeEl.addEventListener('change', updateCarCountVisibility);
   if (hearEl) hearEl.addEventListener('change', updateReferralVisibility);
   if (referralHasEmailEl) referralHasEmailEl.addEventListener('change', updateReferralVisibility);
+  newRequestBtn.addEventListener('click', resetForm);
 
   updateCarCountVisibility();
   updateReferralVisibility();
-
-  newRequestBtn.addEventListener('click', resetForm);
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();

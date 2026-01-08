@@ -77,7 +77,11 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxcFbxLJAFvnkXufw6
       state:     (document.getElementById('state').value || '').trim(),
       zip:       (document.getElementById('zip').value || '').trim(),
       type:      (document.getElementById('type').value || '').trim(),
-      carCount:  (document.getElementById('carCount').value || '').trim()
+      carCount:  (document.getElementById('carCount').value || '').trim(),
+
+      // helpful debugging / attribution
+      source: "ac-landing",
+      userAgent: navigator.userAgent
     };
 
     try{
@@ -87,7 +91,15 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxcFbxLJAFvnkXufw6
         body: JSON.stringify(payload)
       });
 
-      const res = await resp.json();
+      // Apps Script sometimes returns HTML if mis-deployed; don’t let resp.json() crash you
+      const text = await resp.text();
+      let res;
+      try {
+        res = JSON.parse(text);
+      } catch {
+        res = { ok: false, error: "Bad response from backend (not JSON). Verify the /exec URL + Web App access is set to Anyone." };
+      }
+
       btn.disabled = false;
 
       if(res && res.ok){

@@ -197,3 +197,7 @@ button:hover{
   h1{font-size:38px}
   .right{padding:18px}
 }
+/* Lift left content slightly on thank-you screen */
+.wrap.thankyou-active .left {
+  transform: translateY(-32px);
+}

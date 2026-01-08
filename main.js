@@ -14,6 +14,7 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
 
   const typeEl = document.getElementById('type');
   const carCountWrap = document.getElementById('carCountWrap');
+  const wrap = document.querySelector('.wrap');
 
   function cleanPhone(v){
     return (v || '').replace(/[^\d]/g,'').slice(0, 15);
@@ -34,6 +35,7 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
     tyName.textContent = firstName ? `, ${firstName}` : '';
     formView.classList.add('hidden');
     thankYouView.classList.remove('hidden');
+    if (wrap) wrap.classList.add('thankyou-active');
   }
 
   function resetForm(){
@@ -42,6 +44,7 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
     formView.classList.remove('hidden');
     thankYouView.classList.add('hidden');
     updateCarCountVisibility();
+    if (wrap) wrap.classList.remove('thankyou-active');
   }
 
   function updateCarCountVisibility(){
@@ -79,7 +82,7 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
       type:      (document.getElementById('type').value || '').trim(),
       carCount:  (document.getElementById('carCount').value || '').trim(),
 
-      // helpful debugging / attribution
+      // attribution / debugging
       source: "ac-landing",
       userAgent: navigator.userAgent
     };
@@ -88,16 +91,17 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
       const resp = await fetch(window.ACA_API_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        redirect: "follow"
       });
 
-      // Apps Script sometimes returns HTML if mis-deployed; don’t let resp.json() crash you
       const text = await resp.text();
       let res;
+
       try {
         res = JSON.parse(text);
       } catch {
-        res = { ok: false, error: "Bad response from backend (not JSON). Verify the /exec URL + Web App access is set to Anyone." };
+        res = { ok: false, error: "Bad response from backend (not JSON)." };
       }
 
       btn.disabled = false;
@@ -106,7 +110,7 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
         showToast("", true);
         showThankYou(payload.firstName);
       } else {
-        showToast("⚠️ " + (res && res.error ? res.error : "Something went wrong."), false);
+        showToast("⚠️ " + (res.error || "Something went wrong."), false);
       }
     } catch (err){
       btn.disabled = false;

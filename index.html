@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alonso Contreras Agency</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alonso Contreras Agency</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 
-<!-- FAVICON / SITE ICON -->
-<link rel="icon" type="image/svg+xml" href="assets/AC_thumbnail_mark.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-<link rel="mask-icon" href="assets/ac-logo.svg" color="#000000">
+  <!-- FAVICON / SITE ICON -->
+  <link rel="icon" type="image/svg+xml" href="assets/AC_thumbnail_mark.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="mask-icon" href="assets/ac-logo.svg" color="#000000" />
 
-<!-- SOCIAL PREVIEW -->
-<meta property="og:title" content="Get your free quote">
-<meta property="og:description" content="Straightforward insurance. No pressure.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://alonsocontrerasagency.com/">
-<meta property="og:image" content="assets/ac-og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
+  <!-- SOCIAL PREVIEW -->
+  <meta property="og:title" content="Get your free quote" />
+  <meta property="og:description" content="Straightforward insurance. No pressure." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alonsocontrerasagency.com/" />
+  <meta property="og:image" content="assets/ac-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
 </head>
 
 <body>
@@ -34,11 +34,10 @@
 
       <section class="left">
         <div class="brand">
-          <img class="logo" src="assets/ac-logo.svg" alt="Alonso Contreras">
-          <div class="brandname">ALONSO CONTRERAS AGENCY</div>
+          <img class="logo" src="assets/ac-logo.svg" alt="Alonso Contreras" />
         </div>
 
-        <h1>Clear advice.<br>Solid coverage.</h1>
+        <h1>Clear advice.<br />Solid coverage.</h1>
 
         <p class="sub">
           Tell me what you’re looking for and I’ll help you find the right protection — no pressure, no confusion.
@@ -57,22 +56,22 @@
 
           <form id="leadForm">
             <label>First name</label>
-            <input id="firstName" autocomplete="given-name" required>
+            <input id="firstName" autocomplete="given-name" required />
 
             <label>Last name</label>
-            <input id="lastName" autocomplete="family-name" required>
+            <input id="lastName" autocomplete="family-name" required />
 
             <label>Email</label>
-            <input id="email" type="email" autocomplete="email" required>
+            <input id="email" type="email" autocomplete="email" required />
 
             <label>Phone</label>
-            <input id="phone" autocomplete="tel" required>
+            <input id="phone" autocomplete="tel" required />
 
             <label>Street address</label>
-            <input id="street" autocomplete="street-address">
+            <input id="street" autocomplete="street-address" />
 
             <label>City</label>
-            <input id="city" autocomplete="address-level2">
+            <input id="city" autocomplete="address-level2" />
 
             <label>State</label>
             <select id="state">
@@ -90,7 +89,7 @@
             </select>
 
             <label>Zip code</label>
-            <input id="zip" autocomplete="postal-code">
+            <input id="zip" autocomplete="postal-code" />
 
             <label>Insurance type</label>
             <select id="type">
@@ -107,6 +106,43 @@
                 <option value="">Select</option>
                 <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
               </select>
+            </div>
+
+            <!-- NEW: How did you hear about us? -->
+            <div id="hearAboutWrap">
+              <label>How did you hear about us?</label>
+              <select id="hearAbout" required>
+                <option value="">Select</option>
+                <option>Google</option>
+                <option>Facebook</option>
+                <option>Instagram</option>
+                <option>Referral</option>
+                <option>Previous customer</option>
+                <option>Walk-in</option>
+                <option>Mail flyer</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <!-- NEW: Referral follow-ups (only show if Referral selected) -->
+            <div id="referralWrap" class="hidden">
+              <label>Referral name</label>
+              <input id="referralName" placeholder="First + last name" />
+
+              <label>Referral phone</label>
+              <input id="referralPhone" autocomplete="tel" placeholder="(###) ###-####" />
+
+              <label>Do you have their email?</label>
+              <select id="referralHasEmail">
+                <option value="">Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+
+              <div id="referralEmailWrap" class="hidden">
+                <label>Referral email</label>
+                <input id="referralEmail" type="email" autocomplete="email" placeholder="name@email.com" />
+              </div>
             </div>
 
             <button id="submitBtn" type="submit">Submit</button>

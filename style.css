@@ -1,7 +1,7 @@
 :root{
   --card:#ffffff;
   --text:#0f172a;
-  --muted:#6b7280;
+  --muted:#374151;
   --border:#e5e7eb;
   --shadow: 0 20px 60px rgba(0,0,0,.35);
 }
@@ -36,14 +36,14 @@ body{
 
 .left{
   padding:22px 10px;
-  color:#fff;
+  color:#0f172a; /* FIX: black text again */
 }
 
 .brand{
   display:flex;
   flex-direction:column;
-  gap:10px;
-  margin-bottom:18px;
+  gap:6px;
+  margin-bottom:12px;
 }
 
 .logo{
@@ -52,21 +52,16 @@ body{
   display:block;
 }
 
-.brandname{
-  font-size:11px;
-  letter-spacing:.22em;
-  opacity:.8;
-}
-
 h1{
   font-size:44px;
   line-height:1.05;
-  margin:14px 0 12px;
+  margin:10px 0 12px;
   letter-spacing:-.02em;
+  color:#0f172a; /* FIX */
 }
 
 .left .sub{
-  color:rgba(255,255,255,.82);
+  color:#1f2937; /* FIX: readable dark gray */
   max-width:520px;
   font-size:15px;
   line-height:1.6;
@@ -75,7 +70,7 @@ h1{
 .bullets{
   margin:16px 0 0;
   padding-left:16px;
-  color:rgba(255,255,255,.85);
+  color:#1f2937; /* FIX */
   font-size:14px;
   line-height:1.75;
 }
@@ -83,9 +78,9 @@ h1{
 /* ---------- RIGHT CARD ---------- */
 
 .right{
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.95);
   backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.22);
+  border:1px solid rgba(15,23,42,.15);
   border-radius:14px;
   box-shadow:var(--shadow);
   padding:20px;
@@ -112,6 +107,7 @@ input,select{
   font-size:14px;
   outline:none;
   background:#fff;
+  color:#0f172a;
 }
 
 /* ---------- BUTTON ---------- */
@@ -155,20 +151,20 @@ button{
 .legal-block{
   margin-top:14px;
   padding-top:12px;
-  border-top:1px solid rgba(15,23,42,.12);
+  border-top:1px solid rgba(15,23,42,.15);
   font-size:12px;
   line-height:1.5;
-  color:rgba(15,23,42,.72);
+  color:#374151;
 }
 
 .legal-title{
   font-weight:600;
-  color:rgba(15,23,42,.85);
+  color:#111827;
   margin-bottom:4px;
 }
 
 .legal-text{
-  color:rgba(15,23,42,.7);
+  color:#4b5563;
 }
 
 /* ---------- MOBILE ---------- */

@@ -182,3 +182,46 @@ button{
   transform: translateY(-32px);
   transition: transform .18s ease;
 }
+/* MOBILE ONLY */
+@media (max-width: 768px){
+  /* stop iOS/Android weirdness with fixed backgrounds */
+  body{
+    background-attachment: scroll;
+  }
+
+  /* give mobile normal spacing */
+  .wrap{
+    padding: 14px;
+    align-items: flex-start;
+  }
+
+  /* stack layout (no side-by-side) */
+  .grid{
+    grid-template-columns: 1fr;
+    gap: 14px;
+    width: 100%;
+  }
+
+  /* keep logo/hero from feeling huge */
+  .left{
+    padding: 18px;
+  }
+
+  /* if your logo is an img, constrain it */
+  .logo img{
+    max-width: 220px;
+    height: auto;
+  }
+
+  /* if your big headline is too large, tame it */
+  .left h1, .left .headline{
+    font-size: 40px;
+    line-height: 1.05;
+  }
+
+  /* make the form card fit the screen cleanly */
+  .card, .right, .formCard{
+    width: 100%;
+    max-width: 100%;
+  }
+}

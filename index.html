@@ -10,14 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- FAVICON / SITE ICON -->
   <link rel="icon" type="image/svg+xml" href="assets/AC_thumbnail_mark.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="mask-icon" href="assets/ac-logo.svg" color="#000000" />
 
-  <!-- SOCIAL PREVIEW -->
   <meta property="og:title" content="Get your free quote" />
   <meta property="og:description" content="Straightforward insurance. No pressure." />
   <meta property="og:type" content="website" />
@@ -32,7 +30,6 @@
   <div class="wrap">
     <div class="grid">
 
-      <!-- LEFT PANEL -->
       <section class="left">
         <div class="brand">
           <img class="logo" src="assets/ac-logo.svg" alt="Alonso Contreras" />
@@ -51,10 +48,8 @@
         </ul>
       </section>
 
-      <!-- RIGHT PANEL -->
       <section class="right">
 
-        <!-- FORM VIEW -->
         <div id="formView">
           <h2>Request a quote</h2>
 
@@ -112,7 +107,6 @@
               </select>
             </div>
 
-            <!-- How did you hear about us? (wrapped so main.js matches) -->
             <div id="hearAboutWrap">
               <label>How did you hear about us?</label>
               <select id="hearAbout" required>
@@ -128,7 +122,6 @@
               </select>
             </div>
 
-            <!-- Referral follow-up (only shown when Referral selected) -->
             <div id="referralWrap" class="hidden">
               <label>Referral name</label>
               <input id="referralName" placeholder="First + last name" />
@@ -155,7 +148,6 @@
           <div id="toast" class="toast hidden"></div>
         </div>
 
-        <!-- THANK YOU VIEW -->
         <div id="thankYouView" class="hidden">
           <h2>Thank you<span id="tyName"></span>.</h2>
           <p class="sub">Your request is in. I’ll follow up shortly.</p>

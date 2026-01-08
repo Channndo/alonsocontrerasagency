@@ -177,3 +177,8 @@ button{
   h1{font-size:38px}
   .right{padding:18px}
 }
+
+.wrap.thankyou-active .left{
+  transform: translateY(-32px);
+  transition: transform .18s ease;
+}

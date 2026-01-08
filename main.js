@@ -1,3 +1,5 @@
+// After you deploy the Apps Script Web App,
+// paste the Web App URL here:
 window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0VCd20qf7P8mU4EVRagZ6JL1Astu_p76v2ZpyTqeQjykldr0A46g/exec";
 
 (function () {
@@ -12,8 +14,6 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
   const tyName = document.getElementById('tyName');
   const newRequestBtn = document.getElementById('newRequestBtn');
 
-  if (!form || !btn || !toast || !formView || !thankYouView || !newRequestBtn) return;
-
   const typeEl = document.getElementById('type');
   const carCountWrap = document.getElementById('carCountWrap');
   const carCountEl = document.getElementById('carCount');
@@ -26,6 +26,12 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
   const referralHasEmailEl = document.getElementById('referralHasEmail');
   const referralEmailWrap = document.getElementById('referralEmailWrap');
   const referralEmailEl = document.getElementById('referralEmail');
+
+  // If these are missing, JS will error and can make the page feel "broken"
+  if (!form || !btn || !toast || !formView || !thankYouView || !typeEl) {
+    console.error("Missing required elements. Check IDs in index.html.");
+    return;
+  }
 
   function cleanPhone(v) {
     return (v || '').replace(/[^\d]/g, '').slice(0, 15);
@@ -46,23 +52,41 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
     tyName.textContent = firstName ? `, ${firstName}` : '';
     formView.classList.add('hidden');
     thankYouView.classList.remove('hidden');
+
+    // matches your CSS selector: .wrap.thankyou-active .left { transform: ... }
     if (wrap) wrap.classList.add('thankyou-active');
   }
 
+  function resetForm() {
+    form.reset();
+    showToast('', true);
+    formView.classList.remove('hidden');
+    thankYouView.classList.add('hidden');
+
+    if (wrap) wrap.classList.remove('thankyou-active');
+
+    updateCarCountVisibility();
+    updateReferralVisibility();
+  }
+
   function updateCarCountVisibility() {
-    if (!typeEl || !carCountWrap || !carCountEl) return;
     const v = (typeEl.value || '').toLowerCase();
     const show = (v === 'auto' || v === 'bundle');
-    carCountWrap.classList.toggle('hidden', !show);
-    carCountEl.required = show;
-    if (!show) carCountEl.value = '';
+
+    if (carCountWrap) carCountWrap.classList.toggle('hidden', !show);
+
+    // require car count only when visible
+    if (carCountEl) {
+      carCountEl.required = show;
+      if (!show) carCountEl.value = '';
+    }
   }
 
   function updateReferralVisibility() {
-    if (!hearEl || !referralWrap) return;
+    const hear = (hearEl && hearEl.value) ? hearEl.value.toLowerCase() : '';
+    const isReferral = hear === 'referral';
 
-    const isReferral = (hearEl.value || '').toLowerCase() === 'referral';
-    referralWrap.classList.toggle('hidden', !isReferral);
+    if (referralWrap) referralWrap.classList.toggle('hidden', !isReferral);
 
     if (referralNameEl) referralNameEl.required = isReferral;
     if (referralPhoneEl) referralPhoneEl.required = isReferral;
@@ -77,30 +101,26 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
       return;
     }
 
-    const hasEmail = (referralHasEmailEl?.value || '').toLowerCase();
+    const hasEmail = (referralHasEmailEl && referralHasEmailEl.value)
+      ? referralHasEmailEl.value.toLowerCase()
+      : '';
+
     const showEmail = hasEmail === 'yes';
     if (referralEmailWrap) referralEmailWrap.classList.toggle('hidden', !showEmail);
-    if (referralEmailEl) referralEmailEl.required = showEmail;
-    if (!showEmail && referralEmailEl) referralEmailEl.value = '';
+    if (referralEmailEl) {
+      referralEmailEl.required = showEmail;
+      if (!showEmail) referralEmailEl.value = '';
+    }
   }
 
-  function resetForm() {
-    form.reset();
-    showToast('', true);
-    formView.classList.remove('hidden');
-    thankYouView.classList.add('hidden');
-    if (wrap) wrap.classList.remove('thankyou-active');
-    updateCarCountVisibility();
-    updateReferralVisibility();
-  }
-
-  if (typeEl) typeEl.addEventListener('change', updateCarCountVisibility);
+  typeEl.addEventListener('change', updateCarCountVisibility);
   if (hearEl) hearEl.addEventListener('change', updateReferralVisibility);
   if (referralHasEmailEl) referralHasEmailEl.addEventListener('change', updateReferralVisibility);
-  newRequestBtn.addEventListener('click', resetForm);
 
   updateCarCountVisibility();
   updateReferralVisibility();
+
+  if (newRequestBtn) newRequestBtn.addEventListener('click', resetForm);
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -115,22 +135,22 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
 
     const payload = {
       agency: "Alonso Contreras Agency",
-      firstName: (document.getElementById('firstName')?.value || '').trim(),
-      lastName:  (document.getElementById('lastName')?.value || '').trim(),
-      email:     (document.getElementById('email')?.value || '').trim(),
-      phone:     cleanPhone(document.getElementById('phone')?.value),
-      street:    (document.getElementById('street')?.value || '').trim(),
-      city:      (document.getElementById('city')?.value || '').trim(),
-      state:     (document.getElementById('state')?.value || '').trim(),
-      zip:       (document.getElementById('zip')?.value || '').trim(),
-      type:      (typeEl?.value || '').trim(),
-      carCount:  (carCountEl?.value || '').trim(),
+      firstName: (document.getElementById('firstName').value || '').trim(),
+      lastName:  (document.getElementById('lastName').value || '').trim(),
+      email:     (document.getElementById('email').value || '').trim(),
+      phone:     cleanPhone(document.getElementById('phone').value),
+      street:    (document.getElementById('street').value || '').trim(),
+      city:      (document.getElementById('city').value || '').trim(),
+      state:     (document.getElementById('state').value || '').trim(),
+      zip:       (document.getElementById('zip').value || '').trim(),
+      type:      (typeEl.value || '').trim(),
+      carCount:  (carCountEl ? (carCountEl.value || '').trim() : ''),
 
-      heardAbout: (hearEl?.value || '').trim(),
-      referralName: (referralNameEl?.value || '').trim(),
-      referralPhone: cleanPhone(referralPhoneEl?.value),
-      referralHasEmail: (referralHasEmailEl?.value || '').trim(),
-      referralEmail: (referralEmailEl?.value || '').trim(),
+      heardAbout: (hearEl ? (hearEl.value || '').trim() : ''),
+      referralName: (referralNameEl ? (referralNameEl.value || '').trim() : ''),
+      referralPhone: (referralPhoneEl ? cleanPhone(referralPhoneEl.value) : ''),
+      referralHasEmail: (referralHasEmailEl ? (referralHasEmailEl.value || '').trim() : ''),
+      referralEmail: (referralEmailEl ? (referralEmailEl.value || '').trim() : ''),
 
       source: "ac-landing",
       userAgent: navigator.userAgent
@@ -145,8 +165,11 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
 
       const text = await resp.text();
       let res;
-      try { res = JSON.parse(text); }
-      catch { res = { ok: false, error: "Bad response from backend (not JSON)." }; }
+      try {
+        res = JSON.parse(text);
+      } catch {
+        res = { ok: false, error: "Bad response from backend (not JSON)." };
+      }
 
       btn.disabled = false;
 

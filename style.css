@@ -1,3 +1,4 @@
+```css
 :root{
   --card:#ffffff;
   --text:#0f172a;
@@ -36,16 +37,15 @@ body{
 
 .left{
   padding:22px 10px;
-  color:#0f172a; /* FIX: black text again */
+  color:#0f172a;
 }
 
 .brand{
   display:flex;
   flex-direction:column;
-  gap:0;              
-  margin-bottom:0;    
+  gap:0;
+  margin-bottom:0;
 }
-
 
 .logo{
   width:685px;
@@ -57,14 +57,13 @@ body{
 h1{
   font-size:44px;
   line-height:1.05;
-  margin:-64px 0 12px;   
+  margin:-64px 0 12px;
   letter-spacing:-.02em;
   color:#0f172a;
 }
 
-
 .left .sub{
-  color:#1f2937; /* FIX: readable dark gray */
+  color:#1f2937;
   max-width:520px;
   font-size:15px;
   line-height:1.6;
@@ -73,7 +72,7 @@ h1{
 .bullets{
   margin:16px 0 0;
   padding-left:16px;
-  color:#1f2937; /* FIX */
+  color:#1f2937;
   font-size:14px;
   line-height:1.75;
 }
@@ -149,6 +148,11 @@ button{
   line-height:1.6;
 }
 
+.wrap.thankyou-active .left{
+  transform: translateY(-32px);
+  transition: transform .18s ease;
+}
+
 /* ---------- LEGAL BLOCK ---------- */
 
 .legal-block{
@@ -172,120 +176,55 @@ button{
 
 /* ---------- MOBILE ---------- */
 
-@media (max-width:900px){
-  .grid{grid-template-columns:1fr}
-  h1{font-size:38px}
-  .right{padding:18px}
-}
-
-.wrap.thankyou-active .left{
-  transform: translateY(-32px);
-  transition: transform .18s ease;
-}
-/* MOBILE ONLY */
 @media (max-width: 768px){
-  /* stop iOS/Android weirdness with fixed backgrounds */
   body{
     background-attachment: scroll;
   }
 
-  /* give mobile normal spacing */
   .wrap{
-    padding: 14px;
-    align-items: flex-start;
+    padding:14px;
+    align-items:flex-start;
   }
 
-  /* stack layout (no side-by-side) */
   .grid{
-    grid-template-columns: 1fr;
-    gap: 14px;
-    width: 100%;
+    grid-template-columns:1fr;
+    gap:14px;
+    width:100%;
   }
 
-  /* keep logo/hero from feeling huge */
   .left{
-    padding: 18px;
+    padding:18px 16px;
   }
 
-  /* if your logo is an img, constrain it */
-  .logo img{
-    max-width: 220px;
-    height: auto;
+  /* make the logo smaller on mobile + shift left */
+  .logo{
+    width:min(240px, 92vw);
+    margin-bottom:-8px;
+    transform: translateX(-18px);
   }
 
-  /* if your big headline is too large, tame it */
-  .left h1, .left .headline{
-    font-size: 40px;
-    line-height: 1.05;
+  h1{
+    font-size:38px;
+    line-height:1.05;
+    margin:10px 0 8px;
   }
 
-  /* make the form card fit the screen cleanly */
-  .card, .right, .formCard{
-    width: 100%;
-    max-width: 100%;
+  .left .sub{
+    font-size:16px;
+    line-height:1.4;
+  }
+
+  .bullets{
+    font-size:16px;
+    line-height:1.4;
+    margin-top:10px;
+  }
+
+  .right{
+    width:100%;
+    max-width:100%;
+    border-radius:18px;
+    padding:16px;
   }
 }
-/* ---------- MOBILE ONLY ---------- */
-@media (max-width: 768px) {
-
-  /* mobile browsers hate fixed backgrounds; it also feels "zoomed" */
-  body {
-    background-attachment: scroll;
-  }
-
-  .wrap {
-    padding: 14px;
-    align-items: flex-start;
-  }
-
-  .grid {
-    grid-template-columns: 1fr; /* stack */
-    gap: 14px;
-    width: 100%;
-  }
-
-  /* tighten left panel and reduce "giant hero" feel */
-  .left {
-    padding: 18px 16px;
-  }
-
-  /* LOGO: prevent it from dominating the screen */
-  .left img,
-  .left svg {
-    max-width: 240px;
-    height: auto;
-  }
-
-  /* HEADLINE: scale down */
-  .left h1,
-  .left .headline {
-    font-size: 38px;
-    line-height: 1.05;
-    margin: 10px 0 8px;
-  }
-
-  /* BODY + BULLETS: scale down so it matches your “zoomed out” look */
-  .left p,
-  .left li {
-    font-size: 16px;
-    line-height: 1.4;
-  }
-
-  .left ul {
-    margin-top: 10px;
-  }
-
-  /* FORM CARD: keep it full width and not overly tall */
-  .right,
-  .card,
-  .formCard {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 18px;
-  }
-
-  /* reduce spacing inside the form card so it sits higher */
-  .right {
-    padding: 16px;
-  }
-}
+```

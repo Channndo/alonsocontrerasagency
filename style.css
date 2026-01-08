@@ -65,11 +65,12 @@ body{
 .left h1{
   font-size:44px;
   line-height:1.05;
-  margin:-38px 0 10px;   /* <-- THIS is the fix */
+  margin:-52px 0 10px;  /* <- THIS is why it finally moves */
   padding:0;
   letter-spacing:-.02em;
   color:#0f172a;
 }
+
 
 .left .sub{
   color:#111;        /* requested: black and readable */

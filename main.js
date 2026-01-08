@@ -1,6 +1,6 @@
 // After you deploy the Apps Script Web App,
 // paste the Web App URL here:
-window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbwKSO05m55gCWx5K8z1NZXTBMsyAQa5YbU_7rD1y24t7YxgNXKvREGCz9rvdydMzwNPzA/exec";
+window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbz6Kvf7KBkQck0gUir4hh9HL4tBWvEuWeJkheQY9hB6QzbMBY8Jr2x88L-Vj42MbzJbCg/exec";
 
 (function () {
   const wrap = document.querySelector('.wrap');

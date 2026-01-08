@@ -225,3 +225,67 @@ button{
     max-width: 100%;
   }
 }
+/* ---------- MOBILE ONLY ---------- */
+@media (max-width: 768px) {
+
+  /* mobile browsers hate fixed backgrounds; it also feels "zoomed" */
+  body {
+    background-attachment: scroll;
+  }
+
+  .wrap {
+    padding: 14px;
+    align-items: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: 1fr; /* stack */
+    gap: 14px;
+    width: 100%;
+  }
+
+  /* tighten left panel and reduce "giant hero" feel */
+  .left {
+    padding: 18px 16px;
+  }
+
+  /* LOGO: prevent it from dominating the screen */
+  .left img,
+  .left svg {
+    max-width: 240px;
+    height: auto;
+  }
+
+  /* HEADLINE: scale down */
+  .left h1,
+  .left .headline {
+    font-size: 38px;
+    line-height: 1.05;
+    margin: 10px 0 8px;
+  }
+
+  /* BODY + BULLETS: scale down so it matches your “zoomed out” look */
+  .left p,
+  .left li {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .left ul {
+    margin-top: 10px;
+  }
+
+  /* FORM CARD: keep it full width and not overly tall */
+  .right,
+  .card,
+  .formCard {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 18px;
+  }
+
+  /* reduce spacing inside the form card so it sits higher */
+  .right {
+    padding: 16px;
+  }
+}

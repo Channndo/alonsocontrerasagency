@@ -1,120 +1,180 @@
-// After you deploy the Apps Script Web App,
-// paste the Web App URL here:
-window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0VCd20qf7P8mU4EVRagZ6JL1Astu_p76v2ZpyTqeQjykldr0A46g/exec";
+:root{
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --shadow: 0 20px 60px rgba(0,0,0,.35);
+}
 
-(function(){
-  const form = document.getElementById('leadForm');
-  const btn = document.getElementById('submitBtn');
-  const toast = document.getElementById('toast');
+*{box-sizing:border-box}
+html,body{height:100%}
 
-  const formView = document.getElementById('formView');
-  const thankYouView = document.getElementById('thankYouView');
-  const tyName = document.getElementById('tyName');
-  const newRequestBtn = document.getElementById('newRequestBtn');
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  background:#000 url("assets/marble.jpg") center/cover no-repeat fixed;
+}
 
-  const typeEl = document.getElementById('type');
-  const carCountWrap = document.getElementById('carCountWrap');
+.wrap{
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
 
-  function cleanPhone(v){
-    return (v || '').replace(/[^\d]/g,'').slice(0, 15);
-  }
+.grid{
+  width:min(1120px, 100%);
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:24px;
+  align-items:stretch;
+}
 
-  function showToast(msg, ok){
-    if(!msg){
-      toast.classList.add('hidden');
-      toast.textContent = '';
-      return;
-    }
-    toast.classList.remove('hidden');
-    toast.style.background = ok ? '#111827' : '#7f1d1d';
-    toast.textContent = msg;
-  }
+/* ---------- LEFT PANEL ---------- */
 
-  function showThankYou(firstName){
-    tyName.textContent = firstName ? `, ${firstName}` : '';
-    formView.classList.add('hidden');
-    thankYouView.classList.remove('hidden');
+.left{
+  padding:22px 10px;
+  color:#fff;
+}
 
-    // 🔥 lift left side on thank-you screen
-    document.body.classList.add('thankyou-active');
-  }
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:18px;
+}
 
-  function resetForm(){
-    form.reset();
-    showToast('', true);
-    formView.classList.remove('hidden');
-    thankYouView.classList.add('hidden');
-    updateCarCountVisibility();
+.logo{
+  width:185px;
+  height:auto;
+  display:block;
+}
 
-    // 🔥 reset left side position
-    document.body.classList.remove('thankyou-active');
-  }
+.brandname{
+  font-size:11px;
+  letter-spacing:.22em;
+  opacity:.8;
+}
 
-  function updateCarCountVisibility(){
-    const v = (typeEl.value || '').toLowerCase();
-    const show = (v === 'auto' || v === 'bundle');
-    carCountWrap.classList.toggle('hidden', !show);
-  }
+h1{
+  font-size:44px;
+  line-height:1.05;
+  margin:14px 0 12px;
+  letter-spacing:-.02em;
+}
 
-  typeEl.addEventListener('change', updateCarCountVisibility);
-  updateCarCountVisibility();
+.left .sub{
+  color:rgba(255,255,255,.82);
+  max-width:520px;
+  font-size:15px;
+  line-height:1.6;
+}
 
-  newRequestBtn.addEventListener('click', resetForm);
+.bullets{
+  margin:16px 0 0;
+  padding-left:16px;
+  color:rgba(255,255,255,.85);
+  font-size:14px;
+  line-height:1.75;
+}
 
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
+/* ---------- RIGHT CARD ---------- */
 
-    if(!window.ACA_API_URL || window.ACA_API_URL.includes("PASTE_YOUR")){
-      showToast("⚠️ Backend not connected. Paste your Apps Script Web App URL in main.js.", false);
-      return;
-    }
+.right{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  padding:20px;
+}
 
-    btn.disabled = true;
-    showToast('Submitting...', true);
+h2{
+  margin:6px 0 16px;
+  font-size:20px;
+  color:#0f172a;
+}
 
-    const payload = {
-      agency: "Alonso Contreras Agency",
-      firstName: (document.getElementById('firstName').value || '').trim(),
-      lastName:  (document.getElementById('lastName').value || '').trim(),
-      email:     (document.getElementById('email').value || '').trim(),
-      phone:     cleanPhone(document.getElementById('phone').value),
-      street:    (document.getElementById('street').value || '').trim(),
-      city:      (document.getElementById('city').value || '').trim(),
-      state:     (document.getElementById('state').value || '').trim(),
-      zip:       (document.getElementById('zip').value || '').trim(),
-      type:      (document.getElementById('type').value || '').trim(),
-      carCount:  (document.getElementById('carCount').value || '').trim(),
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:10px 0 6px;
+}
 
-      source: "ac-landing",
-      userAgent: navigator.userAgent
-    };
+input,select{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:14px;
+  outline:none;
+  background:#fff;
+}
 
-    try{
-      const resp = await fetch(window.ACA_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
+/* ---------- BUTTON ---------- */
 
-      const text = await resp.text();
-      let res;
-      try {
-        res = JSON.parse(text);
-      } catch {
-        res = { ok: false, error: "Bad response from backend (not JSON)." };
-      }
+button{
+  width:100%;
+  margin-top:14px;
+  padding:12px 14px;
+  border:0;
+  border-radius:12px;
+  cursor:pointer;
+  background:#0b0b0d;
+  color:#fff;
+  font-weight:600;
+  font-size:14px;
+}
 
-      btn.disabled = false;
+/* ---------- TOAST ---------- */
 
-      if(res && res.ok){
-        showToast("", true);
-        showThankYou(payload.firstName);
-      } else {
-        showToast("⚠️ " + (res.error || "Something went wrong."), false);
-      }
-    } catch (err){
-      btn.disabled = false;
-      showToast("⚠️ Error submitting. Try again.", false);
-    }
-  });
-})();
+.toast{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:13px;
+  background:#111827;
+  color:#fff;
+}
+
+.hidden{display:none !important}
+
+/* ---------- THANK YOU VIEW ---------- */
+
+#thankYouView .sub{
+  color:#0f172a;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ---------- LEGAL BLOCK ---------- */
+
+.legal-block{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid rgba(15,23,42,.12);
+  font-size:12px;
+  line-height:1.5;
+  color:rgba(15,23,42,.72);
+}
+
+.legal-title{
+  font-weight:600;
+  color:rgba(15,23,42,.85);
+  margin-bottom:4px;
+}
+
+.legal-text{
+  color:rgba(15,23,42,.7);
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  h1{font-size:38px}
+  .right{padding:18px}
+}

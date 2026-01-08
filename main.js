@@ -14,15 +14,17 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
   const tyName = document.getElementById('tyName');
   const newRequestBtn = document.getElementById('newRequestBtn');
 
+  // If the page is not loaded / wrong HTML is being served, bail safely.
+  if (!form || !btn || !toast || !formView || !thankYouView || !newRequestBtn) return;
+
   const typeEl = document.getElementById('type');
   const carCountWrap = document.getElementById('carCountWrap');
   const carCountEl = document.getElementById('carCount');
 
-  // NEW: How did you hear about us?
-  const hearWrap = document.getElementById('hearAboutWrap');
+  // NEW: Hear about
   const hearEl = document.getElementById('hearAbout');
 
-  // NEW: Referral details (only when hearAbout === "Referral")
+  // NEW: Referral branch
   const referralWrap = document.getElementById('referralWrap');
   const referralNameEl = document.getElementById('referralName');
   const referralPhoneEl = document.getElementById('referralPhone');
@@ -50,7 +52,7 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
     formView.classList.add('hidden');
     thankYouView.classList.remove('hidden');
 
-    // ✅ matches your CSS: .wrap.thankyou-active .left { transform: ... }
+    // lift left side (your CSS uses .wrap.thankyou-active .left)
     if (wrap) wrap.classList.add('thankyou-active');
   }
 
@@ -67,23 +69,25 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
   }
 
   function updateCarCountVisibility() {
+    if (!typeEl || !carCountWrap || !carCountEl) return;
+
     const v = (typeEl.value || '').toLowerCase();
     const show = (v === 'auto' || v === 'bundle');
 
     carCountWrap.classList.toggle('hidden', !show);
+    carCountEl.required = show;
 
-    // make carCount required only when visible
-    if (carCountEl) carCountEl.required = show;
-    if (!show && carCountEl) carCountEl.value = '';
+    if (!show) carCountEl.value = '';
   }
 
   function updateReferralVisibility() {
-    const hear = (hearEl && hearEl.value) ? hearEl.value.toLowerCase() : '';
+    if (!hearEl || !referralWrap) return;
+
+    const hear = (hearEl.value || '').toLowerCase();
     const isReferral = hear === 'referral';
 
-    if (referralWrap) referralWrap.classList.toggle('hidden', !isReferral);
+    referralWrap.classList.toggle('hidden', !isReferral);
 
-    // required fields only when referral
     if (referralNameEl) referralNameEl.required = isReferral;
     if (referralPhoneEl) referralPhoneEl.required = isReferral;
 
@@ -97,20 +101,17 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
       return;
     }
 
-    // If referral selected, handle the "Do you have their email?" branch
-    const hasEmail = (referralHasEmailEl && referralHasEmailEl.value)
-      ? referralHasEmailEl.value.toLowerCase()
-      : '';
-
+    // Referral selected → show email field only if "Yes"
+    const hasEmail = (referralHasEmailEl?.value || '').toLowerCase();
     const showEmail = hasEmail === 'yes';
+
     if (referralEmailWrap) referralEmailWrap.classList.toggle('hidden', !showEmail);
     if (referralEmailEl) referralEmailEl.required = showEmail;
 
     if (!showEmail && referralEmailEl) referralEmailEl.value = '';
   }
 
-  // listeners
-  typeEl.addEventListener('change', updateCarCountVisibility);
+  if (typeEl) typeEl.addEventListener('change', updateCarCountVisibility);
   if (hearEl) hearEl.addEventListener('change', updateReferralVisibility);
   if (referralHasEmailEl) referralHasEmailEl.addEventListener('change', updateReferralVisibility);
 
@@ -132,25 +133,23 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
 
     const payload = {
       agency: "Alonso Contreras Agency",
-      firstName: (document.getElementById('firstName').value || '').trim(),
-      lastName:  (document.getElementById('lastName').value || '').trim(),
-      email:     (document.getElementById('email').value || '').trim(),
-      phone:     cleanPhone(document.getElementById('phone').value),
-      street:    (document.getElementById('street').value || '').trim(),
-      city:      (document.getElementById('city').value || '').trim(),
-      state:     (document.getElementById('state').value || '').trim(),
-      zip:       (document.getElementById('zip').value || '').trim(),
-      type:      (typeEl.value || '').trim(),
-      carCount:  (carCountEl ? (carCountEl.value || '').trim() : ''),
+      firstName: (document.getElementById('firstName')?.value || '').trim(),
+      lastName:  (document.getElementById('lastName')?.value || '').trim(),
+      email:     (document.getElementById('email')?.value || '').trim(),
+      phone:     cleanPhone(document.getElementById('phone')?.value),
+      street:    (document.getElementById('street')?.value || '').trim(),
+      city:      (document.getElementById('city')?.value || '').trim(),
+      state:     (document.getElementById('state')?.value || '').trim(),
+      zip:       (document.getElementById('zip')?.value || '').trim(),
+      type:      (typeEl?.value || '').trim(),
+      carCount:  (carCountEl?.value || '').trim(),
 
-      // NEW fields
-      heardAbout: (hearEl ? (hearEl.value || '').trim() : ''),
-      referralName: (referralNameEl ? (referralNameEl.value || '').trim() : ''),
-      referralPhone: (referralPhoneEl ? cleanPhone(referralPhoneEl.value) : ''),
-      referralHasEmail: (referralHasEmailEl ? (referralHasEmailEl.value || '').trim() : ''),
-      referralEmail: (referralEmailEl ? (referralEmailEl.value || '').trim() : ''),
+      heardAbout: (hearEl?.value || '').trim(),
+      referralName: (referralNameEl?.value || '').trim(),
+      referralPhone: cleanPhone(referralPhoneEl?.value),
+      referralHasEmail: (referralHasEmailEl?.value || '').trim(),
+      referralEmail: (referralEmailEl?.value || '').trim(),
 
-      // attribution
       source: "ac-landing",
       userAgent: navigator.userAgent
     };
@@ -164,11 +163,8 @@ window.ACA_API_URL = "https://script.google.com/macros/s/AKfycbxGRp8ONTS6N3aM0_0
 
       const text = await resp.text();
       let res;
-      try {
-        res = JSON.parse(text);
-      } catch {
-        res = { ok: false, error: "Bad response from backend (not JSON)." };
-      }
+      try { res = JSON.parse(text); }
+      catch { res = { ok: false, error: "Bad response from backend (not JSON)." }; }
 
       btn.disabled = false;
 

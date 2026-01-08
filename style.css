@@ -42,9 +42,10 @@ body{
 .brand{
   display:flex;
   flex-direction:column;
-  gap:6px;
-  margin-bottom:12px;
+  gap:0;              
+  margin-bottom:0;    
 }
+
 
 .logo{
   width:685px;
@@ -55,10 +56,11 @@ body{
 h1{
   font-size:44px;
   line-height:1.05;
-  margin:10px 0 12px;
+  margin:-36px 0 12px;   
   letter-spacing:-.02em;
-  color:#0f172a; /* FIX */
+  color:#0f172a;
 }
+
 
 .left .sub{
   color:#1f2937; /* FIX: readable dark gray */
